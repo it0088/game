@@ -43,7 +43,6 @@ public class Animation extends Thread {
             }
 
             if(model.isShoot){
-
                 try {
                     model.shootFromBullet();
                     if(model.issound)Sound.raketSound.playSound(0);
