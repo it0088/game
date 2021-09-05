@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6f87c50e-8583-445d-adee-4aea9aae819b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/RemoteController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/Animation.class" beforeDir="false" afterPath="$PROJECT_DIR$/../target/classes/Animation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/classes/RemoteController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/gameAliens-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../game.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA 2020.2.3\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1x7J4N3RQruQvC1IOTfoafu0nw3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\it0088\IdeaProjects\gameAliens\src" />
+      <recent name="C:\Users\it0088\IdeaProjects\gameAliens\src\main\java" />
+      <recent name="C:\Users\it0088\IdeaProjects\gameAliens\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean package" />
+      <command value="mvn jar:jar" />
+      <command value="mvn clean compile assembly:single jar:jar" />
+      <command value="mvn clean compile assembly:single" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="gameAliens" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f87c50e-8583-445d-adee-4aea9aae819b" name="Default Changelist" comment="" />
+      <created>1629700004235</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1629700004235</updated>
+      <workItem from="1629700005383" duration="21892000" />
+      <workItem from="1629775754995" duration="7329000" />
+      <workItem from="1630590638135" duration="5866000" />
+      <workItem from="1630645397887" duration="7746000" />
+      <workItem from="1630733540916" duration="890000" />
+      <workItem from="1630842734603" duration="124000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="163" y="27" width="1040" height="701" key="#Project_Structure" timestamp="1630590898053">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="163" y="27" width="1040" height="701" key="#Project_Structure/0.0.1366.728@0.0.1366.728" timestamp="1630590898053" />
+    <state x="137" y="18" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1629711267635">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="137" y="18" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1629711267635" />
+    <state x="443" y="165" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1629711041470">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="443" y="165" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1629711041470" />
+    <state x="488" y="79" key="#com.intellij.ide.util.MemberChooser" timestamp="1629725953939">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="488" y="79" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1629725953939" />
+    <state x="466" y="228" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1629705746737">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="466" y="228" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728@0.0.1366.728" timestamp="1629705746737" />
+    <state width="1323" height="103" key="GridCell.Tab.0.bottom" timestamp="1630683017710">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="103" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1630683017710" />
+    <state width="1323" height="103" key="GridCell.Tab.0.center" timestamp="1630683017710">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="103" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1630683017710" />
+    <state width="1323" height="103" key="GridCell.Tab.0.left" timestamp="1630683017710">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="103" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1630683017710" />
+    <state width="1323" height="103" key="GridCell.Tab.0.right" timestamp="1630683017710">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="103" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1630683017710" />
+    <state x="498" y="297" key="ReplaceDuplicatesPrompt" timestamp="1629709916144">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="498" y="297" key="ReplaceDuplicatesPrompt/0.0.1366.728@0.0.1366.728" timestamp="1629709916144" />
+    <state x="184" y="0" key="SettingsEditor" timestamp="1630677358026">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1630677358026" />
+    <state x="500" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1630677199395">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="500" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1630677199395" />
+    <state x="413" y="227" key="extract.method.dialog" timestamp="1629710864456">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="413" y="227" key="extract.method.dialog/0.0.1366.728@0.0.1366.728" timestamp="1629710864456" />
+    <state x="65" y="24" key="new project wizard" timestamp="1629713623280">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="65" y="24" key="new project wizard/0.0.1366.728@0.0.1366.728" timestamp="1629713623280" />
+    <state x="339" y="162" width="672" height="677" key="run.anything.popup" timestamp="1630682463498">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="339" y="162" width="672" height="677" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1630682463498" />
+  </component>
+</project>

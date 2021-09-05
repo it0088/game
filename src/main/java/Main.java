@@ -5,10 +5,7 @@ public class Main {
 
     public void toStartGame() {
         System.out.println("Game is starting!");
-        System.out.println("Game is starting!");
-        System.out.println("Game is starting!");
         Model model = new Model();
-        RemoteController remoteController = new RemoteController(model);
         Controller controller = new Controller(model);
         model.setController(controller);
         Animation animation = new Animation(controller.getView(),model);
