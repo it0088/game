@@ -42,7 +42,7 @@ public class Model {
     }
 
     public void setShoot(boolean shoot) {
-        isShoot = shoot;
+        isShoot = shoot;//dsdssds
     }
 
     public void bulletToPlain() throws IOException {
