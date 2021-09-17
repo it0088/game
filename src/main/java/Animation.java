@@ -14,66 +14,45 @@ public class Animation extends Thread {
     @Override
     public void run() {
         Sound.plainSound.playSound(5);
-        while (true){
-            if (model.ownPlainIsAlive()) {
-                if(model.direction == Direction.UP){
-                    model.ownPlain.y-=2;
-                }
-                else if(model.direction == Direction.DOWN){
-                    model.ownPlain.y+=2;
-                }
-                else if(model.direction == Direction.RIGHT){
-                    model.ownPlain.x+=2;
-                }
-                else if(model.direction == Direction.LEFT){
-                    model.ownPlain.x-=2;
-                }
-                else if(model.direction == Direction.ESC){
-                    System.exit(0);
-                }
-            }else{
-                Sound.plainSound.stop();
-                model.direction = Direction.STOP;
-                Sound.boomPlainSound.playSound(0);
-                JOptionPane.showMessageDialog(view, "Game Over");
-                Sound.boomPlainSound.close();
-                model.restart();
-                Sound.hoursSound.playSound(2);
-                continue;
-            }
+        while (true) {
+//-----------------------------------------------------------------------------------------------------------
+            controlAirPlaneLifeCycle();
+//-----------------------------------------------------------------------------------------------------------
 
-            if(model.isShoot){
+            if (model.isShootOwnPlain) {
                 try {
                     model.shootFromBullet();
-                    if(model.issound)Sound.raketSound.playSound(0);
-                    model.issound  = false;
+                    if (model.issound) Sound.raketSound.playSound(0);
+                    model.issound = false;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else {
+            } else {
                 try {
-                    model.issound  = true;
+                    model.issound = true;
                     model.bulletToPlain();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+//-----------------------------------------------------------------------------------------------------------
 
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+//-----------------------------------------------------------------------------------------------------------
+
             for (int i = 0; i < model.countAliens; i++) {
                 AlienPlain plain = model.alienPlains.get(i);
 
-                if(plain.x < -150 && !model.isShoot){
+                if (plain.x < -150 && !model.isShootOwnPlain) {
                     model.bombAlien(plain);
-                }
-                else if(!model.isAliveAlien(plain)){
+                } else if (!model.isAliveAlien(plain)) {
                     try {
                         model.bulletToPlain();
-                        model.isShoot = false;
+                        model.isShootOwnPlain = false;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -86,25 +65,50 @@ public class Animation extends Thread {
                     }
 
                     model.bombAlien(plain);
-                    if(model.countAliens<5)
+                    if (model.countAliens < 5)
                         model.countAliens++;
 
-                }
-
-                else {
-                    if (Sound.hoursSound.ais==null && Sound.hoursSound.clip==null ||!Sound.hoursSound.isActive()) {
+                } else {
+                    if (Sound.hoursSound.ais == null && Sound.hoursSound.clip == null || !Sound.hoursSound.isActive()) {
                         Sound.plainSound.start();
-                        plain.x-=2;
+                        plain.x -= 2;
                         model.whereOwnAlienAndBombAlien(plain);
                         if (plain.isBombShoot) {
                             plain.xbomb -= 5;
                         } else {
-                            plain.xbomb-=2;
+                            plain.xbomb -= 2;
                         }
                     }
                 }
             }
+
+//-----------------------------------------------------------------------------------------------------------
+
             view.repaint();
+        }
+    }
+
+    public void controlAirPlaneLifeCycle() {
+        if (model.ownPlainIsAlive()) {
+            if (model.direction == Direction.UP) {
+                model.ownPlain.y -= 2;
+            } else if (model.direction == Direction.DOWN) {
+                model.ownPlain.y += 2;
+            } else if (model.direction == Direction.RIGHT) {
+                model.ownPlain.x += 2;
+            } else if (model.direction == Direction.LEFT) {
+                model.ownPlain.x -= 2;
+            } else if (model.direction == Direction.ESC) {
+                System.exit(0);
+            }
+        } else {
+            Sound.plainSound.stop();
+            model.direction = Direction.STOP;
+            Sound.boomPlainSound.playSound(0);
+            JOptionPane.showMessageDialog(view, "Game Over");
+            Sound.boomPlainSound.close();
+            model.restart();
+            Sound.hoursSound.playSound(2);
         }
     }
 }

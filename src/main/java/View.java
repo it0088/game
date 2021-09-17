@@ -2,7 +2,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +66,7 @@ public class View extends JFrame {
             d2.drawImage(imgBackground.get(0).bombImage,imgBackground.get(0).x,imgBackground.get(0).y,null);
             d2.drawImage(imgBackground.get(1).bombImage,imgBackground.get(1).x,imgBackground.get(1).y,null);
             imgBackground.get(0).x--; imgBackground.get(1).x--;
-            d2.drawString("Crashed ships: "+controller.model.aliencount,20,50);
+            d2.drawString("Crashed ships: "+controller.model.crashedShips,20,50);
             d2.drawString("Record : "+controller.model.getRecord(),400,50);
 
             if (controller.model.ownPlainIsAlive()) {

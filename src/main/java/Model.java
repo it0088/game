@@ -5,44 +5,37 @@ import java.util.Random;
 
 public class Model {
 
-
-    public boolean issound = true;
-
-
-    Controller controller;
-
-    int aliencount;
-    public int record ;
-
-    public int getRecord(){
-        record = Math.max(aliencount, record);
-        return record ;
-    }
-    public void setController(Controller controller) {
-        this.controller = controller;
-    }
-
     Random random = new Random();
     OwnPlain ownPlain = OwnPlain.getOwnPlain();
     OwnPlain.Bullet bullet = OwnPlain.getOwnPlain().new Bullet();
-
-    public Direction direction;
-    boolean isShoot = false;
-
     List<AlienPlain> alienPlains = getAliens();
     int countAliens = 1;
 
 
+    int crashedShips;
+    public int record ;
+    public boolean issound = true;
+    public Direction direction;
+    boolean isShootOwnPlain = false;
+
+
+
+    public int getRecord(){
+        record = Math.max(crashedShips, record);
+        return record ;
+    }
+
+
     public void shootFromBullet() throws IOException {
         if((bullet.getX() >=770)){
-            isShoot = false;
+            isShootOwnPlain = false;
         }
         bullet.setX(bullet.getX()+4);
         bullet.setBullet(Images.BULLET());
     }
 
     public void setShoot(boolean shoot) {
-        isShoot = shoot;//dsdssds
+        isShootOwnPlain = shoot;//dsdssds
     }
 
     public void bulletToPlain() throws IOException {
@@ -66,8 +59,8 @@ public class Model {
         this.ownPlain.y = 50;
         ownPlain.ownPlainIsAlive = true;
         countAliens = 1;
-        aliencount = 0;
-        isShoot = false;
+        crashedShips = 0;
+        isShootOwnPlain = false;
         bullet.setX(ownPlain.x + 50);
         bullet.setY(ownPlain.y + 90);
     }
@@ -79,7 +72,7 @@ public class Model {
             if((y>-15 && y<50) && (x<60 && x>15)){
                 plain.isAliveb = false;
 
-                aliencount++;
+                crashedShips++;
                 return false;
             }
 
