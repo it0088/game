@@ -40,14 +40,6 @@ public class View extends JFrame {
         addKeyListener(controller);
 
     }
-    JComponent gameMotionStr = new JComponent() {
-        @Override
-        protected void paintComponent(Graphics g) {
-            Graphics2D d2 = ((Graphics2D) g);
-            d2.setFont(font1);
-
-        }
-    };
 
     JComponent gameMotion = new JComponent() {
         @Override

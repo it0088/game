@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.io.IOException;
 
 
 public class Animation extends Thread {
@@ -11,82 +10,32 @@ public class Animation extends Thread {
         this.model = model;
     }
 
+    public void delayProcces(int i) {
+        try {
+            Thread.sleep(i);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Override
     public void run() {
         Sound.plainSound.playSound(5);
         while (true) {
-//-----------------------------------------------------------------------------------------------------------
             controlAirPlaneLifeCycle();
-//-----------------------------------------------------------------------------------------------------------
 
-            if (model.isShootOwnPlain) {
-                try {
-                    model.shootFromBullet();
-                    if (model.issound) Sound.raketSound.playSound(0);
-                    model.issound = false;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                try {
-                    model.issound = true;
-                    model.bulletToPlain();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-//-----------------------------------------------------------------------------------------------------------
+            actionOverAirplaneBullet();
 
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-//-----------------------------------------------------------------------------------------------------------
+            controlAliensPlainLifeCycle();
 
-            for (int i = 0; i < model.countAliens; i++) {
-                AlienPlain plain = model.alienPlains.get(i);
-
-                if (plain.x < -150 && !model.isShootOwnPlain) {
-                    model.bombAlien(plain);
-                } else if (!model.isAliveAlien(plain)) {
-                    try {
-                        model.bulletToPlain();
-                        model.isShootOwnPlain = false;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Sound.boomAlienSound.playSound(1);
-                    view.repaint();
-                    try {
-                        sleep(75);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    model.bombAlien(plain);
-                    if (model.countAliens < 5)
-                        model.countAliens++;
-
-                } else {
-                    if (Sound.hoursSound.ais == null && Sound.hoursSound.clip == null || !Sound.hoursSound.isActive()) {
-                        Sound.plainSound.start();
-                        plain.x -= 2;
-                        model.whereOwnAlienAndBombAlien(plain);
-                        if (plain.isBombShoot) {
-                            plain.xbomb -= 5;
-                        } else {
-                            plain.xbomb -= 2;
-                        }
-                    }
-                }
-            }
-
-//-----------------------------------------------------------------------------------------------------------
+            delayProcces(10);
 
             view.repaint();
         }
     }
+
+
 
     public void controlAirPlaneLifeCycle() {
         if (model.ownPlainIsAlive()) {
@@ -111,4 +60,63 @@ public class Animation extends Thread {
             Sound.hoursSound.playSound(2);
         }
     }
+
+    public void actionOverAirplaneBullet() {
+        if (model.canShootFromBullet) {
+            model.shootFromBullet();
+            if (model.issound) Sound.raketSound.playSound(0);
+            model.issound = false;
+        } else {
+            model.issound = true;
+            model.returnBulletToPlain();
+
+        }
+    }
+
+
+    public void controlAliensPlainLifeCycle() {
+        for (int i = 0; i < model.countAliens; i++) {
+            AlienPlain plain = model.alienPlains.get(i);
+            controlAlienPlainLifeCycle(plain);
+        }
+    }
+
+    public void controlAlienPlainLifeCycle(AlienPlain plain) {
+        if (isAlienPlainOutOfBound(plain)) {
+            model.destroyCurrentPlainAndAddNew(plain);
+        } else if (model.isAliveAlien(plain)) {
+            directAndControlAlienPlainAndBullet(plain);
+        } else {
+            simulateAnExplosionAndRemoveAlienPlain(plain);
+            if (model.countAliens < 5)
+                model.countAliens++;
+        }
+
+    }
+    public boolean isAlienPlainOutOfBound(AlienPlain plain) {
+        return plain.x < -150;
+    }
+
+    public void directAndControlAlienPlainAndBullet(AlienPlain plain) {
+        plain.x -= 2;
+        model.whereOwnAlienAndBombAlien(plain);
+        if (plain.isBombShoot) {
+            plain.xbomb -= 5;
+        } else {
+            plain.xbomb -= 2;
+        }
+    }
+
+    public void simulateAnExplosionAndRemoveAlienPlain(AlienPlain plain) {
+        Sound.boomAlienSound.playSound(1);
+        model.returnBulletToPlain();
+        view.repaint();
+        delayProcces(75);
+        model.destroyCurrentPlainAndAddNew(plain);
+    }
+
+
+
+
+
 }

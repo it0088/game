@@ -49,8 +49,12 @@ public abstract class Plain {
             this.y = y;
         }
 
-        public void setBullet(InputStream image) throws IOException {
-            this.bufferedImage = ImageIO.read(image);
+        public void setBullet(InputStream image)  {
+            try {
+                this.bufferedImage = ImageIO.read(image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
