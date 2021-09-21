@@ -39,43 +39,52 @@ public class Animation extends Thread {
 
     public void controlAirPlaneLifeCycle() {
         if (model.ownPlainIsAlive()) {
-            if (model.direction == Direction.UP) {
-                model.ownPlain.y -= 2;
-            } else if (model.direction == Direction.DOWN) {
-                model.ownPlain.y += 2;
-            } else if (model.direction == Direction.RIGHT) {
-                model.ownPlain.x += 2;
-            } else if (model.direction == Direction.LEFT) {
-                model.ownPlain.x -= 2;
-            } else if (model.direction == Direction.ESC) {
-                System.exit(0);
-            }
+            performKeyEventFromUser();
         } else {
-            Sound.plainSound.stop();
-            model.direction = Direction.STOP;
-            Sound.boomPlainSound.playSound(0);
-            JOptionPane.showMessageDialog(view, "Game Over");
-            Sound.boomPlainSound.close();
-            model.restart();
-            Sound.hoursSound.playSound(2);
+            simulateAnExplosionAndRestart();
         }
+    }
+
+    public void performKeyEventFromUser() {
+        if (model.direction == Direction.UP) {
+            model.ownPlain.y -= 2;
+        } else if (model.direction == Direction.DOWN) {
+            model.ownPlain.y += 2;
+        } else if (model.direction == Direction.RIGHT) {
+            model.ownPlain.x += 2;
+        } else if (model.direction == Direction.LEFT) {
+            model.ownPlain.x -= 2;
+        } else if (model.direction == Direction.ESC) {
+            System.exit(0);
+        }
+
+    }
+
+    public void simulateAnExplosionAndRestart() {
+        Sound.plainSound.stop();
+        model.direction = Direction.STOP;
+        Sound.boomPlainSound.playSound(0);
+        JOptionPane.showMessageDialog(view, "Game Over");
+        Sound.boomPlainSound.close();
+        model.restart();
+        Sound.hoursSound.playSound(2);
     }
 
     public void actionOverAirplaneBullet() {
         if (model.canShootFromBullet) {
+            if (model.issound) {
+                Sound.raketSound.playSound(0);
+                model.issound = false;
+            }
             model.shootFromBullet();
-            if (model.issound) Sound.raketSound.playSound(0);
-            model.issound = false;
         } else {
-            model.issound = true;
-            model.returnBulletToPlain();
-
+            model.moveBulletConsideringPlainPoint();
         }
     }
 
 
     public void controlAliensPlainLifeCycle() {
-        for (int i = 0; i < model.countAliens; i++) {
+        for (int i = 0; i < model.alienPlains.size(); i++) {
             AlienPlain plain = model.alienPlains.get(i);
             controlAlienPlainLifeCycle(plain);
         }
@@ -88,8 +97,7 @@ public class Animation extends Thread {
             directAndControlAlienPlainAndBullet(plain);
         } else {
             simulateAnExplosionAndRemoveAlienPlain(plain);
-            if (model.countAliens < 5)
-                model.countAliens++;
+
         }
 
     }
@@ -111,7 +119,7 @@ public class Animation extends Thread {
         Sound.boomAlienSound.playSound(1);
         model.returnBulletToPlain();
         view.repaint();
-        delayProcces(75);
+        delayProcces(50);
         model.destroyCurrentPlainAndAddNew(plain);
     }
 

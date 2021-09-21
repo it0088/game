@@ -6,8 +6,8 @@ public class Main {
     public void toStartGame() {
         System.out.println("Game is starting!");
         Model model = new Model();
-        Controller controller = new Controller(model);
-        Animation animation = new Animation(controller.getView(),model);
+        KeyController keyController = new KeyController(model);
+        Animation animation = new Animation(keyController.getView(),model);
         animation.start();
         }
     }

@@ -1,11 +1,11 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class Controller extends KeyAdapter {
+public class KeyController extends KeyAdapter {
     public Model model;
     View view;
 
-    public Controller(Model model) {
+    public KeyController(Model model) {
         this.model = model;
         this.view = new View(this);
     }

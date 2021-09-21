@@ -8,7 +8,6 @@ public class Model {
     OwnPlain ownPlain = OwnPlain.getOwnPlain();
     OwnPlain.Bullet bullet = OwnPlain.getOwnPlain().new Bullet();
     List<AlienPlain> alienPlains = getAliens();
-    int countAliens = 1;
 
 
     int crashedShips;
@@ -25,11 +24,12 @@ public class Model {
 
 
     public void shootFromBullet() {
-        if ((bullet.getX() >= 770)) {
-            canShootFromBullet = false;
+        if ((bullet.getX() <= 770)) {
+            bullet.setX(bullet.getX() + 4);
+            bullet.setBullet(Images.BULLET());
+        } else {
+            returnBulletToPlain();
         }
-        bullet.setX(bullet.getX() + 4);
-        bullet.setBullet(Images.BULLET());
     }
 
     public void setShoot(boolean shoot) {
@@ -37,19 +37,22 @@ public class Model {
     }
 
     public void returnBulletToPlain() {
+        moveBulletConsideringPlainPoint();
+        bullet.setBullet(Images.BULLETNONFIRE());
+        issound = true;
+        canShootFromBullet = false;
+    }
+
+    public void moveBulletConsideringPlainPoint() {
         bullet.setX(ownPlain.x + 50);
         bullet.setY(ownPlain.y + 90);
-        bullet.setBullet(Images.BULLETNONFIRE());
-        canShootFromBullet = false;
     }
 
 
     public List<AlienPlain> getAliens() {
 
         List<AlienPlain> list = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            list.add(new AlienPlain(950, 70 * (i + 1)));
-        }
+        list.add(new AlienPlain(950, 70 * (2 + 1)));
         return list;
     }
 
@@ -58,11 +61,9 @@ public class Model {
         this.ownPlain.x = 50;
         this.ownPlain.y = 50;
         ownPlain.ownPlainIsAlive = true;
-        countAliens = 1;
         crashedShips = 0;
         canShootFromBullet = false;
-        bullet.setX(ownPlain.x + 50);
-        bullet.setY(ownPlain.y + 90);
+        moveBulletConsideringPlainPoint();
     }
 
     public boolean isAliveAlien(AlienPlain plain) {
@@ -71,7 +72,6 @@ public class Model {
 
         if ((y > -15 && y < 50) && (x < 60 && x > 15)) {
             plain.isAliveb = false;
-
             crashedShips++;
             return false;
         }
@@ -81,11 +81,16 @@ public class Model {
 
     public void destroyCurrentPlainAndAddNew(AlienPlain plain) {
         int x = 1000 + random.nextInt(15) * 10;
+        int x2 = 1000 + random.nextInt(15) * 10;
         int y = random.nextInt(8) * 50;
-        plain.setX(x);
-        plain.setY(y);
-        plain.xbomb = x;
-        plain.ybomb = y;
+        int y2 = random.nextInt(8) * 50;
+
+        if (alienPlains.size() <= 5) {
+            alienPlains.add(new AlienPlain(x, y));
+            alienPlains.add(new AlienPlain(x2, y2));
+        }
+        alienPlains.remove(plain);
+
     }
 
     public void whereOwnAlienAndBombAlien(AlienPlain plain) {
