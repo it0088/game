@@ -13,19 +13,19 @@ public class KeyController extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            model.direction = Direction.UP;
+            model.ownPlain.setDirection(Direction.UP);
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            model.direction = Direction.DOWN;
+            model.ownPlain.setDirection(Direction.DOWN);
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            model.direction = Direction.RIGHT;
+            model.ownPlain.setDirection(Direction.RIGHT);
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            model.direction = Direction.LEFT;
+            model.ownPlain.setDirection(Direction.LEFT);
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            model.setShoot(true);
+            model.ownPlain.shootingModeOn();
         } else if (e.getKeyCode() == KeyEvent.VK_A) {
-            model.direction = Direction.STOP;
+            model.ownPlain.setDirection(Direction.STOP);
         } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            model.direction = Direction.ESC;
+            System.exit(0);;
         }
 
     }
