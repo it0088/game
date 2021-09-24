@@ -1,3 +1,5 @@
+package game;
+
 public class Host {
 
     public static final int GAME = 100;

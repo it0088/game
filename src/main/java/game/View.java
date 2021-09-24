@@ -1,3 +1,7 @@
+package game;
+
+import game.plain.AlienPlain;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

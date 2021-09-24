@@ -1,3 +1,8 @@
+package game;
+
+import game.plain.AlienPlain;
+import game.plain.OwnPlain;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +11,7 @@ import java.util.Random;
 public class Model {
 
     Random random = new Random();
+
     OwnPlain ownPlain = OwnPlain.getOwnPlain();
 
     List<AlienPlain> alienPlains = getAliens();
@@ -52,7 +58,7 @@ public class Model {
             }
             shootingFromBullet();
         } else {
-            ownPlain.moveBulletConsideringPlainPoint();
+            ownPlain.setTheBulletPositionOnThePlane();
         }
     }
 
@@ -85,7 +91,7 @@ public class Model {
         if (plain.shootingModeIsOn()) {
             plain.shootingToLeft(4);
         }else {
-            plain.moveBulletConsideringPlainPoint();
+            plain.setTheBulletPositionOnThePlane();
         }
     }
 
@@ -113,7 +119,7 @@ public class Model {
 
 
     public void returnBulletToPlain() {
-        ownPlain.moveBulletConsideringPlainPoint();
+        ownPlain.setTheBulletPositionOnThePlane();
         issound = true;
         ownPlain.shootingModeOff();
     }
@@ -131,7 +137,7 @@ public class Model {
         ownPlain.rebuild();
         crashedShips = 0;
         ownPlain.shootingModeOff();
-        ownPlain.moveBulletConsideringPlainPoint();
+        ownPlain.setTheBulletPositionOnThePlane();
     }
 
     public boolean isAliveAlien(AlienPlain plain) {
@@ -139,6 +145,7 @@ public class Model {
         int y = ownPlain.getBulletY() - plain.getY();
 
         if ((y > -15 && y < 50) && (x < 60 && x > 15)) {
+            plain.toDestroy();
             crashedShips++;
             return false;
         }

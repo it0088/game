@@ -1,3 +1,5 @@
+package game;
+
 import java.io.InputStream;
 
 public class Images {

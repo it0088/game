@@ -1,5 +1,6 @@
+package game;
+
 import java.io.BufferedInputStream;
-import java.io.InputStream;
 
 public class Sound {
     public static final ClassLoader CLASS_LOADER = Images.class.getClassLoader();

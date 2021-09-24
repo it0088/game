@@ -1,35 +1,37 @@
+package game.plain;
+
+
+import game.Direction;
+import game.Images;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
-public abstract class Plain {
+public abstract class Plain implements BulletPosition {
 
     private Bullet bullet;
     private Direction direction;
     private boolean isAlive = true;
     private boolean shootingModeIsOn = false;
     private BufferedImage plainImage;
-    private BufferedImage bulletImage;
     private int x;
     private int y;
 
 
-
-
-    public Plain(int x,int y)  {
+    public Plain(int x, int y) {
         try {
             this.x = x;
             this.y = y;
-            bullet = new Bullet(x+50,y+90);
+            bullet = new Bullet();
+            setTheBulletPositionOnThePlane();
             this.plainImage = ImageIO.read(Images.AIRLANE1());
-            this.bulletImage = ImageIO.read(Images.BULLETNONFIRE());
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public void toDirect() {
         if (direction == Direction.UP) {
             moveUp(2);
@@ -41,15 +43,19 @@ public abstract class Plain {
             moveLeft(2);
         }
     }
+
     public void moveUp(int speed) {
         this.y -= speed;
     }
+
     public void moveDown(int speed) {
         this.y += speed;
     }
+
     public void moveRight(int speed) {
         this.x += speed;
     }
+
     public void moveLeft(int speed) {
         this.x -= speed;
     }
@@ -90,13 +96,6 @@ public abstract class Plain {
         bullet.setX(bullet.getX() - speed);
     }
 
-
-    public void moveBulletConsideringPlainPoint() {
-        bullet.setX(this.x + 50);
-        bullet.setY(this.y + 90);
-    }
-
-
     public Direction getDirection() {
         return direction;
     }
@@ -111,7 +110,7 @@ public abstract class Plain {
     }
 
     public BufferedImage getBulletImage() {
-        return bulletImage;
+        return bullet.getBullet();
     }
 
     public int getX() {
@@ -132,6 +131,14 @@ public abstract class Plain {
         return bullet.getY();
     }
 
+
+    void shiftX(int x) {
+        bullet.setX(this.x + x);
+    }
+
+    void shiftY(int y) {
+        bullet.setY(this.y + y);
+    }
 
 
 }

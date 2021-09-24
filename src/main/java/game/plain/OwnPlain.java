@@ -1,6 +1,4 @@
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+package game.plain;
 
 public class OwnPlain extends Plain{
 
@@ -15,4 +13,9 @@ public class OwnPlain extends Plain{
         return ownPlain;
     }
 
+    @Override
+    public void setTheBulletPositionOnThePlane() {
+        shiftX(50);
+        shiftY(90);
+    }
 }

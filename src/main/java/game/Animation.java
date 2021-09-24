@@ -1,4 +1,4 @@
-import javax.swing.*;
+package game;
 
 
 public class Animation extends Thread {
