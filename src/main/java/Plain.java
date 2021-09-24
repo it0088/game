@@ -5,15 +5,17 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public abstract class Plain {
-    public BufferedImage plainImage;
-    BufferedImage bulletImage;
-    int x;
-    int y;
 
-    Bullet bullet;
-    public Direction direction;
+    private Bullet bullet;
+    private Direction direction;
     private boolean isAlive = true;
     private boolean shootingModeIsOn = false;
+    private BufferedImage plainImage;
+    private BufferedImage bulletImage;
+    private int x;
+    private int y;
+
+
 
 
     public Plain(int x,int y)  {
@@ -22,6 +24,8 @@ public abstract class Plain {
             this.y = y;
             bullet = new Bullet(x+50,y+90);
             this.plainImage = ImageIO.read(Images.AIRLANE1());
+            this.bulletImage = ImageIO.read(Images.BULLETNONFIRE());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,6 +90,13 @@ public abstract class Plain {
         bullet.setX(bullet.getX() - speed);
     }
 
+
+    public void moveBulletConsideringPlainPoint() {
+        bullet.setX(this.x + 50);
+        bullet.setY(this.y + 90);
+    }
+
+
     public Direction getDirection() {
         return direction;
     }
@@ -95,24 +106,32 @@ public abstract class Plain {
     }
 
 
-    public BufferedImage getBufferedImage() {
+    public BufferedImage getPlainImage() {
         return plainImage;
+    }
+
+    public BufferedImage getBulletImage() {
+        return bulletImage;
     }
 
     public int getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
 
     public int getY() {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public int getBulletX() {
+        return bullet.getX();
     }
+
+
+    public int getBulletY() {
+        return bullet.getY();
+    }
+
+
 
 }

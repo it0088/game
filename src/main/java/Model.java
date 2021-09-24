@@ -52,7 +52,7 @@ public class Model {
             }
             shootingFromBullet();
         } else {
-            moveBulletConsideringPlainPoint();
+            ownPlain.moveBulletConsideringPlainPoint();
         }
     }
 
@@ -76,16 +76,16 @@ public class Model {
 
     }
     public boolean isAlienPlainOutOfBoundOrNoAlive(AlienPlain plain) {
-        return plain.x < -150 || !plain.isAlive();
+        return plain.getX() < -150 || !plain.isAlive();
     }
 
     public void directAndControlAlienPlainAndBullet(AlienPlain plain) {
         plain.moveLeft(2);
         whereOwnAlienAndBombAlien(plain);
         if (plain.shootingModeIsOn()) {
-            plain.s;
-        } else {
-            plain.xbomb -= 2;
+            plain.shootingToLeft(4);
+        }else {
+            plain.moveBulletConsideringPlainPoint();
         }
     }
 
@@ -104,7 +104,7 @@ public class Model {
 
 
     public void shootingFromBullet() {
-        if ((ownPlain.bullet.getX() <= 770)) {
+        if ((ownPlain.getBulletX() <= 770)) {
             ownPlain.shootingToRight(4);
         } else {
             returnBulletToPlain();
@@ -113,16 +113,11 @@ public class Model {
 
 
     public void returnBulletToPlain() {
-        moveBulletConsideringPlainPoint();
-        ownPlain.bullet.setBullet(Images.BULLETNONFIRE());
+        ownPlain.moveBulletConsideringPlainPoint();
         issound = true;
         ownPlain.shootingModeOff();
     }
 
-    public void moveBulletConsideringPlainPoint() {
-        ownPlain.bullet.setX(ownPlain.x + 50);
-        ownPlain.bullet.setY(ownPlain.y + 90);
-    }
 
 
     public List<AlienPlain> getAliens() {
@@ -133,17 +128,15 @@ public class Model {
 
     public void restart() {
         this.alienPlains = getAliens();
-        this.ownPlain.x = 50;
-        this.ownPlain.y = 50;
         ownPlain.rebuild();
         crashedShips = 0;
         ownPlain.shootingModeOff();
-        moveBulletConsideringPlainPoint();
+        ownPlain.moveBulletConsideringPlainPoint();
     }
 
     public boolean isAliveAlien(AlienPlain plain) {
-        int x = ownPlain.bullet.getX() - plain.getX();
-        int y = ownPlain.bullet.getY() - plain.getY();
+        int x = ownPlain.getBulletX() - plain.getX();
+        int y = ownPlain.getBulletY() - plain.getY();
 
         if ((y > -15 && y < 50) && (x < 60 && x > 15)) {
             crashedShips++;
@@ -168,17 +161,16 @@ public class Model {
     }
 
     public void whereOwnAlienAndBombAlien(AlienPlain plain) {
-        if (plain.xbomb < -20) {
-            plain.xbomb = plain.x;
-            plain.isBombShoot = false;
+        if (plain.getBulletX() < -20) {
+            plain.shootingModeOff();
         }
-        if (plain.y + 5 == ownPlain.y + 5) {
-            plain.isBombShoot = true;
+        if (plain.getY() + 5 == ownPlain.getY() + 5) {
+            plain.shootingModeOn();
         }
-        if ((plain.xbomb < ownPlain.x + 90 && plain.xbomb > ownPlain.x) &&
-                (plain.ybomb > ownPlain.y && plain.ybomb < ownPlain.y + 70)
-                || (ownPlain.x + 100 > plain.x && ownPlain.x < plain.x + 100) &&
-                (ownPlain.y + 85 > plain.y && ownPlain.y < plain.y + 20)) {
+        if ((plain.getBulletX() < ownPlain.getX() + 90 && plain.getBulletX() > ownPlain.getX()) &&
+                (plain.getBulletY() > ownPlain.getY() && plain.getBulletY() < ownPlain.getY() + 70)
+                || (ownPlain.getX() + 100 > plain.getX() && ownPlain.getX() < plain.getX() + 100) &&
+                (ownPlain.getY() + 85 > plain.getY() && ownPlain.getY() < plain.getY() + 20)) {
             ownPlain.toDestroy();
         }
     }

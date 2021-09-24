@@ -62,25 +62,25 @@ public class View extends JFrame {
             d2.drawString("Record : " + keyController.model.getRecord(), 400, 50);
 
             if (keyController.model.ownPlain.isAlive()) {
-                d2.drawImage(keyController.getModel().ownPlain.getBufferedImage(),
-                        keyController.getModel().ownPlain.x,
-                        keyController.getModel().ownPlain.y, null);
-                d2.drawImage(keyController.getModel().ownPlain.bullet.bufferedImage,
-                        keyController.getModel().ownPlain.bullet.getX(),
-                        keyController.getModel().ownPlain.bullet.getY(), null);
+                d2.drawImage(keyController.getModel().ownPlain.getPlainImage(),
+                        keyController.getModel().ownPlain.getX(),
+                        keyController.getModel().ownPlain.getY(), null);
+                d2.drawImage(keyController.getModel().ownPlain.getBulletImage(),
+                        keyController.getModel().ownPlain.getBulletX(),
+                        keyController.getModel().ownPlain.getBulletY(), null);
 
                 for (int i = 0; i < keyController.model.alienPlains.size(); i++) {
                     AlienPlain plain = keyController.getModel().alienPlains.get(i);
-                    if (plain.isAliveb) {
-                        d2.drawImage(plain.bulletImage, plain.xbomb, plain.ybomb, null);
-                        d2.drawImage(plain.getBufferedImage(), plain.x, plain.y, null);
+                    if (plain.isAlive()) {
+                        d2.drawImage(plain.getPlainImage(), plain.getX(), plain.getY(), null);
+                        d2.drawImage(plain.getBulletImage(), plain.getBulletX(), plain.getBulletY(), null);
 
                     } else {
-                        d2.drawImage(boomImage, plain.x, plain.y, null);
+                        d2.drawImage(boomImage, plain.getX(), plain.getY(), null);
                     }
                 }
             } else {
-                d2.drawImage(boomImage, keyController.model.ownPlain.x, keyController.model.ownPlain.y, null);
+                d2.drawImage(boomImage, keyController.model.ownPlain.getX(), keyController.model.ownPlain.getY(), null);
 
             }
 
