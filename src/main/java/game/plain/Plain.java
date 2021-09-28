@@ -10,27 +10,68 @@ import java.io.IOException;
 
 public abstract class Plain implements BulletPosition {
 
-    private Bullet bullet;
-    private Direction direction;
-    private boolean isAlive = true;
-    private boolean shootingModeIsOn = false;
-    private BufferedImage plainImage;
     private int x;
     private int y;
+    private Bullet bullet;
+    private Direction direction;
+    private BufferedImage plainImage;
+    private boolean isAlive = true;
+    private boolean shootingModeIsOn = false;
 
 
-    public Plain(int x, int y) {
+
+    public Plain(int x, int y,String plainImg, String bulletImg) {
         try {
             this.x = x;
             this.y = y;
             bullet = new Bullet();
             setTheBulletPositionOnThePlane();
-            this.plainImage = ImageIO.read(Images.AIRLANE1());
+            setPlainImage(plainImg);
+            setBulletImage(bulletImg);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getBulletX() {
+        return bullet.getX();
+    }
+
+    public int getBulletY() {
+        return bullet.getY();
+    }
+
+    public BufferedImage getPlainImage() {
+        return plainImage;
+    }
+
+    public BufferedImage getBulletImage() {
+        return bullet.getBullet();
+    }
+
+
+    public void setPlainImage(String fileName) throws IOException {
+        plainImage = ImageIO.read(Images.getResource(fileName));
+    }
+
+    public void setBulletImage(String fileName)  {
+        bullet.setBullet(Images.getResource(fileName));
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
 
     public void toDirect() {
         if (direction == Direction.UP) {
@@ -78,14 +119,10 @@ public abstract class Plain implements BulletPosition {
 
     public void shootingModeOn() {
         shootingModeIsOn = true;
-        bullet.setBullet(Images.BULLET());
-
     }
 
     public void shootingModeOff() {
         shootingModeIsOn = false;
-        bullet.setBullet(Images.BULLETNONFIRE());
-
     }
 
     public void shootingToRight(int speed) {
@@ -96,49 +133,14 @@ public abstract class Plain implements BulletPosition {
         bullet.setX(bullet.getX() - speed);
     }
 
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
-
-    public BufferedImage getPlainImage() {
-        return plainImage;
-    }
-
-    public BufferedImage getBulletImage() {
-        return bullet.getBullet();
-    }
-
-    public int getX() {
-        return x;
-    }
-
-
-    public int getY() {
-        return y;
-    }
-
-    public int getBulletX() {
-        return bullet.getX();
-    }
-
-
-    public int getBulletY() {
-        return bullet.getY();
-    }
-
-
-    void shiftX(int x) {
+    void shiftBulletX(int x) {
         bullet.setX(this.x + x);
     }
 
-    void shiftY(int y) {
+    void shiftBulletY(int y) {
         bullet.setY(this.y + y);
     }
+
 
 
 }

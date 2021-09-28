@@ -1,11 +1,13 @@
 package game.plain;
 
+import game.Images;
+
 public class OwnPlain extends Plain{
 
-    private static final OwnPlain ownPlain = new OwnPlain(50,50);
+    private static final OwnPlain ownPlain = new OwnPlain(50,50, Images.RED_AIRPLANE, Images.BULLETNONFIRE);
 
-    private OwnPlain(int x, int y) {
-        super(x, y);
+    private OwnPlain(int x, int y,String plainImg, String bulletImg) {
+        super(x, y, plainImg, bulletImg);
     }
 
 
@@ -15,7 +17,20 @@ public class OwnPlain extends Plain{
 
     @Override
     public void setTheBulletPositionOnThePlane() {
-        shiftX(50);
-        shiftY(90);
+        shiftBulletX(50);
+        shiftBulletY(90);
+    }
+
+    @Override
+    public void shootingModeOn() {
+        super.shootingModeOn();
+        setBulletImage(Images.FIRE_BULLET);
+
+    }
+
+    @Override
+    public void shootingModeOff() {
+        super.shootingModeOff();
+        setBulletImage(Images.BULLETNONFIRE);
     }
 }

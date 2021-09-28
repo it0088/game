@@ -18,9 +18,9 @@ public class Animation extends Thread {
 
             model.controlAirPlaneLifeCycle();
 
-            model.actionOverAirplaneBullet();
-
             model.controlAliensPlainLifeCycle();
+
+            model.whereOwnAlienAndBombAlien();
 
             view.repaint();
 

@@ -9,13 +9,13 @@ public class Background {
     public int x;
     public int y;
 
-    public BufferedImage bombImage;
+    public BufferedImage backgroundImage;
 
     public Background(int x, int y)  {
         this.x = x;
         this.y = y;
         try {
-            this.bombImage = ImageIO.read(Images.BGG());
+            this.backgroundImage = ImageIO.read(Images.getResource(Images.BACKGROUND));
         } catch (IOException e) {
             e.printStackTrace();
         }

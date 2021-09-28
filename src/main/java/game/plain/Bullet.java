@@ -12,13 +12,6 @@ public class Bullet {
 
     private BufferedImage bulletImage;
 
-    public Bullet() {
-        try {
-            this.bulletImage = ImageIO.read(Images.BULLETNONFIRE());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public int getX() {
         return x;

@@ -24,7 +24,7 @@ public class View extends JFrame {
         setResizable(false);
         this.keyController = keyController;
         try {
-            boomImage = ImageIO.read(Images.BOOM1());
+            boomImage = ImageIO.read(Images.getResource(Images.BOOM));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,8 +58,8 @@ public class View extends JFrame {
                 imgBackground.add(back);
             }
 
-            d2.drawImage(imgBackground.get(0).bombImage, imgBackground.get(0).x, imgBackground.get(0).y, null);
-            d2.drawImage(imgBackground.get(1).bombImage, imgBackground.get(1).x, imgBackground.get(1).y, null);
+            d2.drawImage(imgBackground.get(0).backgroundImage, imgBackground.get(0).x, imgBackground.get(0).y, null);
+            d2.drawImage(imgBackground.get(1).backgroundImage, imgBackground.get(1).x, imgBackground.get(1).y, null);
             imgBackground.get(0).x--;
             imgBackground.get(1).x--;
             d2.drawString("Crashed ships: " + keyController.model.crashedShips, 20, 50);
@@ -76,8 +76,8 @@ public class View extends JFrame {
                 for (int i = 0; i < keyController.model.alienPlains.size(); i++) {
                     AlienPlain plain = keyController.getModel().alienPlains.get(i);
                     if (plain.isAlive()) {
-                        d2.drawImage(plain.getPlainImage(), plain.getX(), plain.getY(), null);
                         d2.drawImage(plain.getBulletImage(), plain.getBulletX(), plain.getBulletY(), null);
+                        d2.drawImage(plain.getPlainImage(), plain.getX(), plain.getY(), null);
 
                     } else {
                         d2.drawImage(boomImage, plain.getX(), plain.getY(), null);
