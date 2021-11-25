@@ -2,6 +2,7 @@ package game;
 
 import game.plain.AlienPlain;
 import game.plain.OwnPlain;
+import game.plain.Plain;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -10,16 +11,39 @@ import java.util.Random;
 
 public class Model {
 
-    Random random = new Random();
+    Score score;
+    OwnPlain ownPlain;
+    List<AlienPlain> alienPlains;
+    List<Background> imgBackground;
 
-    OwnPlain ownPlain = OwnPlain.getOwnPlain();
-
-    List<AlienPlain> alienPlains = getAliens();
+    public boolean canPlaySoundOfShooting = true;
 
 
-    int crashedShips;
-    public int record;
-    public boolean issound = true;
+    public Model() {
+        score = new Score();
+        imgBackground = new ArrayList<>();
+        imgBackground.add(new Background(1, 1));
+        imgBackground.add(new Background(1792, 1));
+        setInitialSettings();
+
+    }
+
+    private void setInitialSettings() {
+        Sound.plainSound.playSound(5);
+        this.ownPlain = new OwnPlain(50, 50, Images.RED_AIRPLANE, Images.BULLETNONFIRE);
+        this.alienPlains = new ArrayList<>();
+        addAliens(1);
+    }
+
+    public void addAliens(int quantity) {
+        Random random = new Random();
+
+        for (int i = 0; i < quantity; i++) {
+            int x = 1000 + random.nextInt(15) * 10;
+            int y = random.nextInt(8) * 50;
+            alienPlains.add(new AlienPlain(x, y, Images.BLUESHEEP, Images.ALIENBOMB));
+        }
+    }
 
 
     public void controlAirPlaneLifeCycle() {
@@ -34,34 +58,51 @@ public class Model {
 
     private void actionOverAirplaneBullet() {
         if (ownPlain.shootingModeIsOn()) {
-            if (issound) {
+            if (canPlaySoundOfShooting) {
                 Sound.raketSound.playSound(0);
-                issound = false;
+                canPlaySoundOfShooting = false;
             }
-            ownPlain.shootingToRight(4);
+
+            if ((ownPlain.getBulletX() > 770)) {
+                ownPlain.shootingModeOff();
+                canPlaySoundOfShooting = true;
+            } else {
+                ownPlain.shootingToRight(4);
+                toCheckAndChangeTheIfEnemiesPlaneIsShooted();
+            }
         } else {
             ownPlain.setTheBulletPositionOnThePlane();
         }
+
     }
+
+    public void toCheckAndChangeTheIfEnemiesPlaneIsShooted() {
+        for (AlienPlain plain : alienPlains) {
+            int x = ownPlain.getBulletX() - plain.getX();
+            int y = ownPlain.getBulletY() - plain.getY();
+
+            if ((y > -15 && y < 50) && (x < 60 && x > 15)) {
+                ownPlain.shootingModeOff();
+                canPlaySoundOfShooting = true;
+                score.increase();
+                plain.toDestroy();
+                Sound.boomAlienSound.playSound(2);
+            }
+        }
+    }
+
 
     private void simulateAnExplosionAndRestart() {
         Sound.plainSound.stop();
-        ownPlain.setDirection(Direction.STOP);
         Sound.boomPlainSound.playSound(0);
         JOptionPane.showMessageDialog(new JFrame(), "Game Over");
         Sound.boomPlainSound.close();
-        restart();
+        score.calcRecord();
+        score.setToZero();
+        setInitialSettings();
         Sound.hoursSound.playSound(2);
     }
 
-    public void restart() {
-        crashedShips = 0;
-        alienPlains = getAliens();
-        ownPlain.rebuild();
-        ownPlain.shootingModeOff();
-        ownPlain.setBulletImage(Images.BULLETNONFIRE);
-        ownPlain.setTheBulletPositionOnThePlane();
-    }
 
     public void controlAliensPlainLifeCycle() {
         for (int i = 0; i < alienPlains.size(); i++) {
@@ -71,94 +112,92 @@ public class Model {
     }
 
     private void controlAlienPlainLifeCycle(AlienPlain plain) {
-        if (isAliveAlien(plain)) {
+        if (plain.isAlive()) {
             directAndControlAlienPlainAndBullet(plain);
-        } else {
-            destroyCurrentPlainAndAddNew(plain);
         }
 
     }
 
-    private boolean isAliveAlien(AlienPlain plain) {
-        return plain.isAlive();
-    }
 
     private void directAndControlAlienPlainAndBullet(AlienPlain plain) {
-        plain.moveLeft(2);
+        if (plain.getX() < -150) {
+            plain.toDestroy();
+        } else {
+            plain.moveLeft(2);
+        }
+
+        if (ownPlain.getY() + 85 > plain.getY() && ownPlain.getY() < plain.getY() + 20) {
+            plain.shootingModeOn();
+        }
         if (plain.shootingModeIsOn()) {
-            plain.shootingToLeft(4);
+            if (plain.getBulletX() < -20) {
+                plain.shootingModeOff();
+            } else {
+                plain.shootingToLeft(4);
+                toCheckAndChangeTheIfEnemiesPlaneIsShooted(plain);
+            }
         } else {
             plain.setTheBulletPositionOnThePlane();
         }
     }
 
-    private void destroyCurrentPlainAndAddNew(AlienPlain plain) {
-        alienPlains.remove(plain);
-        int x = 1000 + random.nextInt(15) * 10;
-        int x2 = 1000 + random.nextInt(15) * 10;
-        int y = random.nextInt(8) * 50;
-        int y2 = random.nextInt(8) * 50;
+    public void toCheckAndChangeTheIfEnemiesPlaneIsShooted(Plain plain) {
+        if (plain.shootingModeIsOn()
+                && plain.getBulletX() < ownPlain.getX() + 90
+                && plain.getBulletX() > ownPlain.getX()
+                && plain.getBulletY() > ownPlain.getY()
+                && plain.getBulletY() < ownPlain.getY() + 70) {
+            ownPlain.toDestroy();
+        }
+    }
 
-        if (alienPlains.size() <= 5) {
-            alienPlains.add(new AlienPlain(x, y, Images.BLUESHEEP, Images.ALIENBOMB));
-            alienPlains.add(new AlienPlain(x2, y2, Images.BLUESHEEP, Images.ALIENBOMB));
+    public void destroyCurrentPlainAndAddNew() {
+        for (int i = 0; i < alienPlains.size(); i++) {
+            AlienPlain plain = alienPlains.get(i);
+            if (!plain.isAlive()) {
+                alienPlains.remove(plain);
+                if (alienPlains.size() <= 5) {
+                    addAliens(2);
+                }
+            }
         }
 
+
     }
 
 
-    public List<AlienPlain> getAliens() {
-        List<AlienPlain> list = new ArrayList<>();
-        list.add(new AlienPlain(950, 70 * (2 + 1), Images.BLUESHEEP, Images.ALIENBOMB));
-        return list;
+    public void detectCollisionOfPlanes() {
+        if (areThePlanesCollided()) {
+            ownPlain.toDestroy();
+        }
     }
 
-
-
-
-    public void whereOwnAlienAndBombAlien() {
-
+    private boolean areThePlanesCollided() {
         for (AlienPlain plain : alienPlains) {
+            boolean iscollided = ownPlain.getX() + 100 > plain.getX()
+                    && ownPlain.getX() < plain.getX() + 100
+                    && ownPlain.getY() + 85 > plain.getY()
+                    && ownPlain.getY() < plain.getY() + 20;
 
-            int x = ownPlain.getBulletX() - plain.getX();
-            int y = ownPlain.getBulletY() - plain.getY();
-
-            if ((y > -15 && y < 50) && (x < 60 && x > 15)) {
-                plain.toDestroy();
-                ownPlain.shootingModeOff();
-                issound = true;
-                Sound.boomAlienSound.playSound(2);
-                crashedShips++;
-            } else if (plain.getX() < -150) {
-                plain.toDestroy();
-            }
-            if ((ownPlain.getBulletX() > 770)) {
-                ownPlain.shootingModeOff();
-                issound = true;
-
-            }
-
-            if (plain.getBulletX() < -20) {
-                plain.shootingModeOff();
-
-            } else if (plain.getY() + 5 == ownPlain.getY() + 5) {
-                plain.shootingModeOn();
-            }
-            if (plain.shootingModeIsOn() && (plain.getBulletX() < ownPlain.getX() + 90 && plain.getBulletX() > ownPlain.getX()) &&
-                    (plain.getBulletY() > ownPlain.getY() && plain.getBulletY() < ownPlain.getY() + 70)
-                    || (ownPlain.getX() + 100 > plain.getX() && ownPlain.getX() < plain.getX() + 100) &&
-                    (ownPlain.getY() + 85 > plain.getY() && ownPlain.getY() < plain.getY() + 20)) {
-                ownPlain.toDestroy();
+            if (iscollided) {
+                return true;
             }
         }
+        return false;
     }
 
+    public void moveTheBackground() {
+        Background first = imgBackground.get(0);
+        Background second = imgBackground.get(1);
+        boolean isTheFirstImgOutOfScreen = first.getX() + 1792 < 0;
 
-
-    public int getRecord() {
-        record = Math.max(crashedShips, record);
-        return record;
+        if (isTheFirstImgOutOfScreen) {
+            int x = second.getX() + 1792;
+            imgBackground.remove(first);
+            first.setX(x);
+            imgBackground.add(first);
+        }
+        first.decreaseX();
+        second.decreaseX();
     }
-
-
 }

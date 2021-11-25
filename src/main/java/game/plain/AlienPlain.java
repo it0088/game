@@ -1,6 +1,8 @@
 package game.plain;
 
 
+import game.Images;
+
 public class AlienPlain extends Plain {
 
 
@@ -16,5 +18,10 @@ public class AlienPlain extends Plain {
         shiftBulletY(0);
     }
 
+    @Override
+    public void toDestroy() {
+        super.toDestroy();
+        setPlainImage(Images.BOOM);
+    }
 }
 

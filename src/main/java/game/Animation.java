@@ -13,18 +13,24 @@ public class Animation extends Thread {
 
     @Override
     public void run() {
-        Sound.plainSound.playSound(5);
+
         while (true) {
+
+
+            model.moveTheBackground();
+
+            model.destroyCurrentPlainAndAddNew();
 
             model.controlAirPlaneLifeCycle();
 
             model.controlAliensPlainLifeCycle();
 
-            model.whereOwnAlienAndBombAlien();
+            model.detectCollisionOfPlanes();
 
             view.repaint();
 
-            delayProcces(10);
+            delayProcces(15);
+
 
         }
     }
@@ -36,11 +42,6 @@ public class Animation extends Thread {
             e.printStackTrace();
         }
     }
-    
-
-
-
-
 
 
 }

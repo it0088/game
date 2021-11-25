@@ -4,15 +4,9 @@ import game.Images;
 
 public class OwnPlain extends Plain{
 
-    private static final OwnPlain ownPlain = new OwnPlain(50,50, Images.RED_AIRPLANE, Images.BULLETNONFIRE);
 
-    private OwnPlain(int x, int y,String plainImg, String bulletImg) {
+    public OwnPlain(int x, int y,String plainImg, String bulletImg) {
         super(x, y, plainImg, bulletImg);
-    }
-
-
-    public static OwnPlain getOwnPlain(){
-        return ownPlain;
     }
 
     @Override
@@ -32,5 +26,11 @@ public class OwnPlain extends Plain{
     public void shootingModeOff() {
         super.shootingModeOff();
         setBulletImage(Images.BULLETNONFIRE);
+    }
+
+    @Override
+    public void toDestroy() {
+        super.toDestroy();
+        setPlainImage(Images.BOOM);
     }
 }

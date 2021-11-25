@@ -21,17 +21,12 @@ public abstract class Plain implements BulletPosition {
 
 
     public Plain(int x, int y,String plainImg, String bulletImg) {
-        try {
             this.x = x;
             this.y = y;
-            bullet = new Bullet();
+            this.bullet = new Bullet();
             setTheBulletPositionOnThePlane();
             setPlainImage(plainImg);
             setBulletImage(bulletImg);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -60,8 +55,12 @@ public abstract class Plain implements BulletPosition {
     }
 
 
-    public void setPlainImage(String fileName) throws IOException {
-        plainImage = ImageIO.read(Images.getResource(fileName));
+    public void setPlainImage(String fileName) {
+        try {
+            plainImage = ImageIO.read(Images.getResource(fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setBulletImage(String fileName)  {
@@ -109,9 +108,6 @@ public abstract class Plain implements BulletPosition {
         isAlive = false;
     }
 
-    public void rebuild() {
-        isAlive = true;
-    }
 
     public boolean shootingModeIsOn() {
         return shootingModeIsOn;

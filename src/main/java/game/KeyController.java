@@ -24,7 +24,6 @@ public class KeyController extends KeyAdapter {
             model.ownPlain.setDirection(Direction.LEFT);
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             model.ownPlain.shootingModeOn();
-
         } else if (e.getKeyCode() == KeyEvent.VK_A) {
             model.ownPlain.setDirection(Direction.STOP);
         } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
