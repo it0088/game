@@ -13,8 +13,8 @@ import java.util.Random;
 public class Model {
 
     private Score score;
-    private OwnPlain ownPlain;
-    private List<AlienPlain> alienPlains;
+    private OwnPlane ownPlain;
+    private List<AlienPlane> alienPlanes;
     private List<DataInfo> dataInfos;
     private List<Background> backgroundList;
 
@@ -30,8 +30,8 @@ public class Model {
         this.backgroundList = new ArrayList<>();
         this.backgroundList.add(new Background(1, 1));
         this.backgroundList.add(new Background(1792, 1));
-        this.ownPlain = new OwnPlain(50, 50, Images.RED_AIRPLANE, Images.BULLETNONFIRE);
-        this.alienPlains = new ArrayList<>();
+        this.ownPlain = new OwnPlane(50, 50, Images.RED_AIRPLANE, Images.BULLETNONFIRE);
+        this.alienPlanes = new ArrayList<>();
         this.dataInfos = new ArrayList<>();
         addAliens(1);
     }
@@ -42,8 +42,8 @@ public class Model {
         for (int i = 0; i < quantity; i++) {
             int x = 1000 + random.nextInt(15) * 10;
             int y = random.nextInt(8) * 50;
-            AlienPlain plain = new AlienPlain(x, y, Images.BLUESHEEP, Images.ALIENBOMB);
-            alienPlains.add(plain);
+            AlienPlane plain = new AlienPlane(x, y, Images.BLUESHEEP, Images.ALIENBOMB);
+            alienPlanes.add(plain);
             dataInfos.add(plain.getDataInfo());
         }
     }
@@ -71,7 +71,7 @@ public class Model {
                 canPlaySoundOfShooting = true;
             } else {
                 ownPlain.shootingToRight(4);
-                toCheckAndChangeTheIfEnemiesPlaneIsShooted();
+                toCheckAndChangeIfTheEnemiesPlaneIsShooted();
             }
         } else {
             ownPlain.setTheBulletPositionOnThePlane();
@@ -79,8 +79,8 @@ public class Model {
 
     }
 
-    void toCheckAndChangeTheIfEnemiesPlaneIsShooted() {
-        for (AlienPlain plain : alienPlains) {
+    void toCheckAndChangeIfTheEnemiesPlaneIsShooted() {
+        for (AlienPlane plain : alienPlanes) {
             int x = ownPlain.getBulletX() - plain.getX();
             int y = ownPlain.getBulletY() - plain.getY();
 
@@ -108,13 +108,13 @@ public class Model {
 
 
     public void controlAliensPlainLifeCycle() {
-        for (int i = 0; i < alienPlains.size(); i++) {
-            AlienPlain plain = alienPlains.get(i);
+        for (int i = 0; i < alienPlanes.size(); i++) {
+            AlienPlane plain = alienPlanes.get(i);
             controlAlienPlainLifeCycle(plain);
         }
     }
 
-    private void controlAlienPlainLifeCycle(AlienPlain plain) {
+    private void controlAlienPlainLifeCycle(AlienPlane plain) {
         if (plain.isAlive()) {
             directAndControlAlienPlainAndBullet(plain);
         }
@@ -122,7 +122,7 @@ public class Model {
     }
 
 
-    private void directAndControlAlienPlainAndBullet(AlienPlain plain) {
+    private void directAndControlAlienPlainAndBullet(AlienPlane plain) {
         if (plain.getX() < -150) {
             plain.toDestroy();
         } else {
@@ -137,30 +137,30 @@ public class Model {
                 plain.shootingModeOff();
             } else {
                 plain.shootingToLeft(4);
-                toCheckAndChangeTheIfEnemiesPlaneIsShooted(plain);
+                toCheckAndChangeIfTheEnemiesPlaneIsShooted(plain);
             }
         } else {
             plain.setTheBulletPositionOnThePlane();
         }
     }
 
-    void toCheckAndChangeTheIfEnemiesPlaneIsShooted(Plain plain) {
-        if (plain.shootingModeIsOn()
-                && plain.getBulletX() < ownPlain.getX() + 90
-                && plain.getBulletX() > ownPlain.getX()
-                && plain.getBulletY() > ownPlain.getY()
-                && plain.getBulletY() < ownPlain.getY() + 70) {
+    void toCheckAndChangeIfTheEnemiesPlaneIsShooted(Plane plane) {
+        if (plane.shootingModeIsOn()
+                && plane.getBulletX() < ownPlain.getX() + 90
+                && plane.getBulletX() > ownPlain.getX()
+                && plane.getBulletY() > ownPlain.getY()
+                && plane.getBulletY() < ownPlain.getY() + 70) {
             ownPlain.toDestroy();
         }
     }
 
     public void destroyCurrentPlainAndAddNew() {
-        for (int i = 0; i < alienPlains.size(); i++) {
-            AlienPlain plain = alienPlains.get(i);
+        for (int i = 0; i < alienPlanes.size(); i++) {
+            AlienPlane plain = alienPlanes.get(i);
             if (!plain.isAlive()) {
-                alienPlains.remove(plain);
+                alienPlanes.remove(plain);
                 dataInfos.remove(plain.getDataInfo());
-                if (alienPlains.size() <= 5) {
+                if (alienPlanes.size() <= 5) {
                     addAliens(2);
                 }
             }
@@ -177,7 +177,7 @@ public class Model {
     }
 
     private boolean areThePlanesCollided() {
-        for (AlienPlain plain : alienPlains) {
+        for (AlienPlane plain : alienPlanes) {
             boolean iscollided = ownPlain.getX() + 100 > plain.getX()
                     && ownPlain.getX() < plain.getX() + 100
                     && ownPlain.getY() + 85 > plain.getY()
@@ -213,7 +213,7 @@ public class Model {
         ownPlain.shootingModeOn();
     }
 
-    public OwnPlain getOwnPlain() {
+    public OwnPlane getOwnPlain() {
         return ownPlain;
     }
 

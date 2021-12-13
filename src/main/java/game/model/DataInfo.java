@@ -1,34 +1,34 @@
 package game.model;
 
-import game.model.objects.Plain;
+import game.model.objects.Plane;
 
 import java.awt.image.BufferedImage;
 
 public class DataInfo {
-    Plain plain;
+    Plane plane;
 
-    public DataInfo(Plain plain) {
-        this.plain = plain;
+    public DataInfo(Plane plane) {
+        this.plane = plane;
     }
 
     public int getX() {
-        return plain.getX();
+        return plane.getX();
     }
-    public int getY() { return plain.getY(); }
+    public int getY() { return plane.getY(); }
     public int getBulletX() {
-        return plain.getBulletX();
+        return plane.getBulletX();
     }
 
     public int getBulletY() {
-        return plain.getBulletY();
+        return plane.getBulletY();
     }
 
     public BufferedImage getPlainImage() {
-        return plain.getPlainImage();
+        return plane.getPlainImage();
     }
 
     public BufferedImage getBulletImage() {
-        return plain.getBulletImage();
+        return plane.getBulletImage();
     }
 
 }

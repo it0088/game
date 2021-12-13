@@ -4,9 +4,8 @@ import game.model.Background;
 import game.model.Model;
 import game.model.DataInfo;
 import game.model.Score;
-import game.model.objects.OwnPlain;
+import game.model.objects.OwnPlane;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DataForView {
@@ -21,7 +20,7 @@ public class DataForView {
     }
 
     public DataInfo getOwnPlaneInfo() {
-        OwnPlain ownPlain = model.getOwnPlain();
+        OwnPlane ownPlain = model.getOwnPlain();
         return ownPlain.getDataInfo();
     }
 
