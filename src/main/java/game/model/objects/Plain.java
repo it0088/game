@@ -15,9 +15,9 @@ public abstract class Plain implements BulletPosition {
     private Bullet bullet;
     private Direction Direction;
     private BufferedImage plainImage;
-    DataInfo dataInfo;
     private boolean isAlive = true;
     private boolean shootingModeIsOn = false;
+    private DataInfo dataInfo;
 
 
     public Plain(int x, int y, String plainImg, String bulletImg) {
